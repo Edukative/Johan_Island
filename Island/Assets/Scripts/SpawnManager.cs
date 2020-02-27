@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
 
+    bool timerTest = false;
     float spawnRange = 9.5f;
 
     float minMassRange = 1f;
@@ -54,6 +55,25 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("p"))
+        {
+            
+            timerTest = true;
+
+            
+
+        }
+        if (timerTest == true)
+        {
+
+            Debug.Log("1");
+            float timer = 1;
+            timer -= Time.deltaTime;
+            if (timer < 0)
+            {
+                Debug.Log("2");
+            }
+        }
         int enemiesCount = FindObjectsOfType<EnemyBehavior>().Length;
         if (enemiesCount == 0 && !isGameOver)
         {
@@ -66,18 +86,27 @@ public class SpawnManager : MonoBehaviour
         {
             isGameOver = true;
             gameOverText.enabled = true;
-            StartCoroutine(GameOverTimer());
+            if (Input.GetKeyDown("space")){ 
+                RestarGame();
+            }
+            //StartCoroutine(GameOverTimer());
         }
 
     }
 
-    IEnumerator GameOverTimer()
+    /*IEnumerator GameOverTimer()
     {
         yield return new WaitForSeconds(5);
         RestarGame();
         StopCoroutine(GameOverTimer());
 
+    }*/
+    void gameOverTextAnimation()
+    {
+
+
     }
+
     void RestarGame()
     {
         player.transform.position = initialPosition;
